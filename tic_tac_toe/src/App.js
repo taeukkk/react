@@ -29,7 +29,7 @@ function Board({ xIsNext, squares, onPlay }) {
     if (squares[i] || calculateWinner(squares)) {
       return;
     }
-    const nextSquares = squares.slice();
+    const nextSquares = squares.slice(); //copy squares
     // nextSquares[i] = "X";
     if (xIsNext) {
       nextSquares[i] = "X";
@@ -49,26 +49,46 @@ function Board({ xIsNext, squares, onPlay }) {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
+  const rows = [];
+  for (let r = 0; r < 3; r++) {
+    let row = [];
+    for (let c = 0; c < 3; c++) {
+      let i = 3 * r + c;
+      console.log(i);
+      row.push(
+        <Square value={squares[i]} onSquareClick={() => handleClick(i)} />
+      );
+    }
+    rows.push(<div className="board-row">{row}</div>);
+  }
+
   return (
     <React.Fragment>
       <div className="status">{status}</div>
-      <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      {rows}
     </React.Fragment>
   );
+
+  // return (
+  //   <React.Fragment>
+  //     <div className="status">{status}</div>
+  //     <div className="board-row">
+  //       <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+  //       <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+  //       <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+  //     </div>
+  //     <div className="board-row">
+  //       <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+  //       <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+  //       <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+  //     </div>
+  //     <div className="board-row">
+  //       <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+  //       <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+  //       <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+  //     </div>
+  //   </React.Fragment>
+  // );
 }
 export default function Game() {
   // const [xIsNext, setXIsNext] = useState(true);
