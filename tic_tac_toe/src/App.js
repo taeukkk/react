@@ -2,7 +2,7 @@ import React from "react";
 // 'React' must be in scope when using JSX
 import { useState } from "react";
 
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick, color }) {
   // const [value, setValue] = useState(null);
   // function handleClick() {
   //   setValue("X");
@@ -15,7 +15,7 @@ function Square({ value, onSquareClick }) {
   //   </button>
   // );
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className="square" onClick={onSquareClick} style={{ color }}>
       {value}
     </button>
   );
@@ -54,10 +54,26 @@ function Board({ xIsNext, squares, onPlay }) {
     let row = [];
     for (let c = 0; c < 3; c++) {
       let i = 3 * r + c;
-      console.log(i);
-      row.push(
-        <Square value={squares[i]} onSquareClick={() => handleClick(i)} />
-      );
+      if (
+        winner &&
+        (winner[1][0] === i || winner[1][1] === i || winner[1][2] === i)
+      ) {
+        row.push(
+          <Square
+            value={squares[i]}
+            onSquareClick={() => handleClick(i)}
+            color="red"
+          />
+        );
+      } else {
+        row.push(
+          <Square
+            value={squares[i]}
+            onSquareClick={() => handleClick(i)}
+            color="black"
+          />
+        );
+      }
     }
     rows.push(<div className="board-row">{row}</div>);
   }
