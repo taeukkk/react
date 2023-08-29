@@ -113,6 +113,7 @@ export default function Game() {
   // const currentSquares = history[history.length - 1];
   // const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+  const [toggle, setToggle] = useState(false);
 
   function handlePlay(nextSquares) {
     // setHistory([...history, nextSquares]);
@@ -152,7 +153,10 @@ export default function Game() {
         />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <button onClick={() => setToggle(!toggle)}>sort</button>
+        {toggle && <ol>{moves}</ol>}
+        {!toggle && <ol>{moves.reverse()}</ol>}
+        {/* <ol>{moves}</ol> */}
       </div>
     </div>
   );
